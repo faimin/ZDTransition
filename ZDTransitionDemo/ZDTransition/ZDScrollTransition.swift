@@ -37,7 +37,7 @@ class ZDScrollTransition: NSObject, UIViewControllerAnimatedTransitioning {
         containerView.addSubview(snapShortView)
         containerView.addSubview(toView!)
         
-        UIView.animate(withDuration: duration, delay: 0, options: UIViewAnimationOptions.curveEaseIn, animations: { 
+        UIView.animate(withDuration: duration, delay: 0, options: UIView.AnimationOptions.curveEaseIn, animations: { 
             toView?.transform = CGAffineTransform(translationX: 0, y: -containerView.bounds.height/2)
             }) { (finished) in
                 transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
