@@ -18,10 +18,11 @@ public protocol PresentFromBottomVCProtocol {
 
 class ZDBottomPresentationController: UIPresentationController {
     deinit {
-        print("-[ZDBottomPresentationController dealloc]")
+        print("#line: " + String(#line) + ", #function: " + String(#function))
     }
     
-    public var controllerHeight: CGFloat = 0
+    // 全局变量，记录模态视图的高度
+    let controllerHeight: CGFloat
     
     lazy var blackView: UIView = {
         let view = UIView()
@@ -29,12 +30,20 @@ class ZDBottomPresentationController: UIPresentationController {
             view.frame = frame
         }
         view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hide))
+        view.addGestureRecognizer(tapGesture)
+        
         return view
     }()
     
     override init(presentedViewController: UIViewController, presenting presentingViewController: UIViewController?) {
-        
+        if let vc = presentedViewController as? PresentFromBottomVCProtocol {
+            controllerHeight = vc.controllerHeight;
+        }
+        else {
+            controllerHeight = UIScreen.main.bounds.height
+        }
         super.init(presentedViewController: presentedViewController, presenting: presentingViewController)
     }
     
@@ -67,7 +76,7 @@ class ZDBottomPresentationController: UIPresentationController {
     
     //MARK: Action
     @objc func hide() {
-        
+        self.presentedViewController.dismiss(animated: true, completion: nil)
     }
 }
 
@@ -81,8 +90,8 @@ extension UIViewController: UIViewControllerTransitioningDelegate {
     }
     
     //MARK: - Public Method
+    // 继承自UIViewController且遵守PresentFromBottomVCProtocol协议
     public func presentFromBottom(_ vc: UIViewController & PresentFromBottomVCProtocol) {
-//        let vc = VCClass.init()
         vc.modalPresentationStyle = .custom
         vc.transitioningDelegate = self
         self.present(vc, animated: true, completion: nil)

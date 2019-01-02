@@ -2,7 +2,7 @@
 //  ViewController.swift
 //  Demo
 //
-//  Created by 符现超 on 2016/10/14.
+//  Created by Zero.D.Saber on 2016/10/14.
 //  Copyright © 2016年 Zero.D.Saber. All rights reserved.
 //
 
@@ -30,6 +30,12 @@ class FirstController: UIViewController, UINavigationControllerDelegate {
         if ((self.navigationController?.delegate = self) != nil) {
             self.navigationController?.delegate = nil
         }
+    }
+    
+    
+    @IBAction func presentVC(_ sender: UIButton, forEvent event: UIEvent) {
+        let secondVC = SecondController()
+        self.presentFromBottom(secondVC)
     }
     
     //MARK: UINavigationControllerDelegate

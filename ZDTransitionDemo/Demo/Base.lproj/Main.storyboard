@@ -29,6 +29,9 @@
                                 <state key="normal" title="模态视图">
                                     <color key="titleColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="presentVC:forEvent:" destination="BYZ-38-t0r" eventType="touchUpInside" id="EEb-aw-kiM"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
